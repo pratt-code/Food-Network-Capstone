@@ -7,6 +7,8 @@ services:
     working_dir: /foodnetwork
     build:
       context: .
-    expose:
-      - 3000
+      dockerfile: Dockerfile
+    ports:
+      - 3000:3000
+    command: npm start
       
