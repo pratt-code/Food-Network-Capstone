@@ -1,0 +1,12 @@
+version: "2.20"
+
+services:
+  app:
+    container_name: food-network-app
+    image: docker.io/library/the-food-network-image:latest
+    working_dir: /foodnetwork
+    build:
+      context: .
+    expose:
+      - 3000
+      
