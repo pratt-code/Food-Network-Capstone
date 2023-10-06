@@ -1,4 +1,4 @@
-import logo from './logo.svg';
+import logo from './Food_Network_logo.png';
 import './App.css';
 
 function App() {
@@ -6,17 +6,21 @@ function App() {
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
+        <p className="App-welcome">
+          <b>Welcome to the Food Network!</b>
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <p>
+          Separate inputs with commas.
+        </p>
+        {/* Ingredient input box */}
+        <p>Enter ingredients</p>
+        <input type="text" placeholder="i.e. Eggs, flour, sugar, etc." />
+        {/* Dietary Restriction input box */}
+        <p>Enter dietary restrictions</p>
+        <input type="text" placeholder="i.e. Keto, vegetarian, etc." />
+        {/* Search button with padding*/}
+        <br />
+        <button>Find recipes</button>
       </header>
     </div>
   );
