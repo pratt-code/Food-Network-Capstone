@@ -2,6 +2,16 @@ import logo from './Food_Network_logo.png';
 import './App.css';
 
 function App() {
+  const buttonStyle = {
+    width: '200px',
+    height: '50px',
+    fontSize: '20px',
+    backgroundColor: 'white',
+  };
+
+  function handleClick() {
+    window.location.href = 'recipe-list.html';
+  }
   return (
     <div className="App">
       <header className="App-header">
@@ -20,7 +30,7 @@ function App() {
         <input type="text" placeholder="i.e. Keto, vegetarian, etc." />
         {/* Search button with padding*/}
         <br />
-        <button>Find recipes</button>
+        <button onClick={handleClick} style={buttonStyle}>Find Recipes</button>
       </header>
     </div>
   );
