@@ -30,7 +30,7 @@ function App() {
         <input type="text" placeholder="i.e. Keto, vegetarian, etc." />
         {/* Search button with padding*/}
         <br />
-        <button onClick={handleClick} style={buttonStyle}>Find Recipes</button>
+        <a href='recipe.html'><button onClick={handleClick} style={buttonStyle}>Find Recipes</button></a>
       </header>
     </div>
   );
