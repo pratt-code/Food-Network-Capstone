@@ -2,7 +2,6 @@ import json
 import os
 from elasticsearch import Elasticsearch
 
-
 def load(recipes, es):
     for r in recipes:
         rid = r
@@ -47,7 +46,7 @@ def main():
     }
     if es.indices.exists(index="recipes"):
         es.delete_by_query(index='recipes', body={"query": {"match_all": {}}})
-    es.indices.create(index='recipes', ignore=400)
+    es.indices.create(index='recipes', ignore=400, body=mapping)
 
     load(recipes, es)
 
