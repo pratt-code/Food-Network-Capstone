@@ -13,6 +13,12 @@ def load(recipes, es):
             title = recipes[r]['title']
         if 'ingredients' in recipes[r].keys():
             ingredients = recipes[r]['ingredients']
+            for i in range(len(ingredients)):
+                if ingredients[i] == 'ADVERTISEMENT':
+                    ingredients.pop(i)
+                    i -= 1
+                else:
+                    ingredients[i] = ingredients[i].replace('ADVERTISEMENT', '')
         if 'instructions' in recipes[r].keys():
             instructions = recipes[r]['instructions']
         
