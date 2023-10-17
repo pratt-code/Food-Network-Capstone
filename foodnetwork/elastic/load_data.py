@@ -10,6 +10,19 @@ recipes = json.load(f)
 f.close()
 
 es = Elasticsearch("http://localhost:9200")
+mapping = {"mappings": {
+            "properties": {
+            "rid": { "type": "keyword" },
+            "title": { "type": "text" },
+            "ingredients": { "type": "text" },
+            "instructions": { "type": "text" },
+    }
+  }
+}
+if es.indices.exists(index="recipes"):
+    es.delete_by_query(index='recipes', body={"query": {"match_all": {}}})
+es.indices.create(index='recipes', ignore=400)
+
 
 for r in recipes:
     rid = r
@@ -32,4 +45,5 @@ for r in recipes:
     'ingredients': ingredients,
     'instructions': instructions
     })
+    print(list(recipes.keys()).index(r))
 
