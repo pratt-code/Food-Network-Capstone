@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, jsonify
 from flask_cors import CORS, cross_origin
 from elasticsearch import Elasticsearch
 
@@ -69,7 +69,8 @@ def search_autocomplete():
     }
 
     resp = es.search(index="recipes", query=payload, size=MAX_SIZE)
-    return [result['_source']['title'] for result in resp['hits']['hits']]
+    print(resp)
+    return jsonify([result['_source']['title'] for result in resp['hits']['hits']])
 
 
 if __name__ == "__main__":
