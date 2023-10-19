@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Recipe Finder</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/App.css') }}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  </head>
+  <body>
+    <div style="background-image: linear-gradient(rgba(114, 114, 114, 0.67), rgba(255,255,255,0.85)), url('/static/background.jpg'); 
+          min-width: 100%;
+          min-height: 100%;
+          position: fixed;">
+
+      <div class="top">
+        <img src="{{ url_for('static', filename='Food_Network_logo.png') }}" class="App-logo" />
+        <b class="center">Welcome to the Food Network!</b>
+      </div>
+      <div class="bottom">
+        <p>
+          <b>
+            Search for a recipe:
+          </b>
+        </p>
+        
+        <input class="search-box">
+        <div class="results"></div>
+        <script src="{{url_for('static', filename='scripts/AutoComplete.js')}}"></script>
+      </div>
+    </div>
+  </body>
+</html>
