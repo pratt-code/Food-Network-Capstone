@@ -17,35 +17,73 @@ app.config['CORS_HEADERS'] = 'Content-Type'
 def home():
     return render_template("index.html")
 
-
-@app.route("/result_data")
-@cross_origin()
-def search_result():
-    query = request.args["q"].lower()
-    tokens = query.split(" ")
-
-    clauses = [
-        {
-            "span_multi": {
-                "match": {"title": {"value": i}}
-            }
-        }
-        for i in tokens
-    ]
-
-    payload = {
-        "bool": {
-            "must": [{"span_near": {"clauses": clauses, "slop": 0, "in_order": False}}]
-        }
-    }
-
-    resp = es.search(index="recipes", query=payload, size=5)
-    return [[result['_source']['title'], result['_source']['ingredients'], result['_source']['instructions']] for result in resp['hits']['hits']]
-
 @app.route("/result")
 @cross_origin()
 def result_page():
-    return render_template("result.html")
+    prompt = request.args["prompt"]
+    size = int(request.args["size"])
+    q = prompt.replace("_", " ")
+    query = None
+
+    if prompt == "null":
+        return render_template("result.html", data=[], query="None")
+    elif request.args["auto"] == "1" and request.args["ing"] == "0":
+        query = {
+            "query": {
+                "match_phrase": {
+                    "title": q
+                }
+            },
+            "sort": [
+                {
+                    "_score": {
+                        "order": "desc"
+                    }
+                }
+            ]
+        }
+    elif request.args["auto"] != "1" and request.args["ing"] == "0":
+        query = {
+            "query": {
+                "match": {
+                    "title": {
+                        "query": q,
+                        "fuzziness": "AUTO"
+                    }
+                }
+            },
+            "sort": [
+                {
+                    "_score": {
+                        "order": "desc"
+                    }
+                }
+            ]
+        }
+    elif request.args["auto"] != "1" and request.args["ing"] == "1":
+        query = {
+            "query": {
+                "match": {
+                    "ingredients": {
+                        "query": q,
+                        "fuzziness": "AUTO"
+                    }
+                }
+            },
+            "sort": [
+                {
+                    "_score": {
+                        "order": "desc"
+                    }
+                }
+            ]
+        }
+
+    resp = es.search(index="recipes", body=query, size=size)
+    print(query)
+    data = [[result['_source']['title'], result['_source']['ingredients'], result['_source']['instructions']] for result in resp['hits']['hits']]
+
+    return render_template("result.html", data=data, query=q)
 
 @app.route("/search")
 @cross_origin()
@@ -69,7 +107,6 @@ def search_autocomplete():
     }
 
     resp = es.search(index="recipes", query=payload, size=MAX_SIZE)
-    print(resp)
     return jsonify([result['_source']['title'] for result in resp['hits']['hits']])
 
 
