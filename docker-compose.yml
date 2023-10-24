@@ -1,16 +1,5 @@
 version: "3.7"
 services:
-  app:
-    container_name: food-network-app
-    image: docker.io/library/the-food-network-image:latest
-    working_dir: /foodnetwork
-    build:
-      context: .
-      dockerfile: Dockerfile
-    ports:
-      - 3000:3000
-    command: npm start
-
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.5.0
     container_name: elasticsearch

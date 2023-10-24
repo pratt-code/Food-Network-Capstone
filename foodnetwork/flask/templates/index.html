@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Recipe Finder</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/App.css') }}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  </head>
+  <body>
+    <div style="background-image: linear-gradient(rgba(63, 63, 63, 0.849), rgba(255,255,255,0.85)), url('https://media.architecturaldigest.com/photos/60a6a478ced6797772f44d7a/16:9/w_2560%2Cc_limit/20191011-DSC_7759-Edit_HI_RES.jpeg'); 
+          min-width: 100%;
+          min-height: 100%;
+          text-align: center;
+          background-size: cover;
+          box-shadow: 100px 0 90px -4px rgba(0, 0, 0, 0.8) inset, -100px 0 90px -4px rgba(0, 0, 0, 0.8) inset">
+      <div class="shadowOFF">
+        <div class="top">
+          <img src="{{ url_for('static', filename='Food_Network_logo.png') }}" class="App-logo" />
+          <div class="welcome">
+            <b>Welcome to the Food Network!</b>
+          </div>
+        </div>
+        <div class="bottom">
+          <div class="boxContainer">
+            <table class="elementsContainer">
+              <tr>
+                <td style="width: 109px;">
+                  <select autocomplete="off" name="type" id="search_type" class="search_type">
+                    <option value="Ingredients">Ingredients</option>
+                    <option value="Title" selected>Title</option>
+                  </select>
+                </td>
+                <td style="width: 65px;">
+                  <input class="max" type="number" value="5" autocomplete="off" id="max_results">
+                </td>
+                <td>
+                  <input type="text" id="search-box" autocomplete="off" placeholder="Search" class="search-box">
+                </td>
+                <td style="width: 40px; align-items: right;">
+                  <button class="search_button" id="search_button" href=""><i class="material-icons">search</i></button>
+                </td>
+              </tr>
+            </table>
+          </div>
+          <div class="results">
+          </div>
+          <script src="{{url_for('static', filename='scripts/AutoComplete.js')}}"></script>
+        </div>
+      </div>  
+    </div>
+  </body>
+</html>
