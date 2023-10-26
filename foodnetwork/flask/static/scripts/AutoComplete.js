@@ -13,7 +13,7 @@ $(document).ready(function() {
         }
         else if(document.getElementById('search-box').value.endsWith(",") && document.getElementById('search_type').value == "Ingredients" && document.getElementById('search-box').value.length > 2){
                 e.preventDefault();
-                $('.resultList').append(`<div class="boxContainer2">
+                $('.resultList').append(`<div class="boxContainer2" id="con${ingredient_item.length}">
                 <table class="elementsContainer2" style="height=42px;">
                   <tr>
                     <td style="font-size: 17px; font-family: Nunito; padding-right: 20px; padding-left: 15px; vertical-align: 10px;">
@@ -27,7 +27,7 @@ $(document).ready(function() {
               </div>`)
               document.getElementById(`ingredient_x${ingredient_item.length}`).addEventListener('click', (e) => {
                 var n = e.currentTarget.id.substring(e.currentTarget.id.length-1, e.currentTarget.id.length);
-                $('.boxContainer2').eq(n).remove();
+                document.getElementById(`con${n}`).remove();
                 var index = ingredient_item.indexOf(`ingredient_item${n}`);
               });
               ingredient_item.push(document.getElementById('search-box').value.substring(0, document.getElementById('search-box').value.length-1));
