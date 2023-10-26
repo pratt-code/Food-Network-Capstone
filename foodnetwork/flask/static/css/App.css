@@ -17,6 +17,28 @@
   vertical-align: middle;
 }
 
+.boxContainer2 {
+  margin: auto;
+  position: relative;
+  width: fit-content;
+  height: 32px;
+  border: 2px solid #5c5c5c;
+  padding: 0px 0px 0px 10px;
+  border-radius: 50px;
+  background-color: rgb(255, 255, 255);
+  box-shadow: #313131;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+
+.elementsContainer2 {
+  width: 100%;
+  height: 100%;
+  box-sizing:border-box;
+  vertical-align: middle;
+  position: relative;
+}
+
 .search-box {
   border: none;
   height: 100%;
@@ -166,7 +188,22 @@ html,body {
   overflow: auto;
  }
 
- .display {
+.x_button {
+  width: 40px;
+  height: 20px;
+  margin-bottom: 10px;
+  border: none;
+  background-color: rgb(255, 255, 255);
+  align-items: right;
+}
+ 
+.x_button:hover {
+  background-color: rgb(255, 255, 255);
+  transition: 0.5s;
+  cursor: pointer;
+}
+
+.display {
   text-align: left;
   padding-left: 30px;
   padding-right: 30px;
@@ -175,29 +212,20 @@ html,body {
   overflow: auto;
  }
 
- .collapsible {
-  background-color: #eee;
-  color: #444;
-  cursor: pointer;
-  padding: 18px;
-  width: 100px;
-  height: 500px;
-  border: none;
-  text-align: left;
-  outline: none;
-  font-size: 15px;
+.recipe_table {
+  table-layout: fixed;
 }
 
-.active, .collapsible:hover {
-  background-color: #b30234;
+.calories {
+  border-radius: 50px;
+  background-color: white;
+  border: 2px solid #5c5c5c;
+  height: 50px;
+  width: 200px;
+  padding-top: 25px;
+  text-align: center;
 }
 
-.content {
-  padding: 0 18px;
-  display: none;
-  overflow: hidden;
-  background-color: #f1f1f1;
+.recipe_hidden {
+  height: fit-content;
 }
-
- 
-

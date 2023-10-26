@@ -1,8 +1,9 @@
 $(document).ready(function() {
     let debounce;
+    let ingredient_item = [];
     document.querySelector(".search-box").addEventListener('keydown', (e) => {
         if(e.keyCode == 13){
-                getSearch();
+                getSearch(ingredient_item);
         } 
         else if(document.getElementById('search_type').value != "Ingredients"){
                 clearTimeout(debounce)
@@ -10,31 +11,46 @@ $(document).ready(function() {
                         getAutoComplete();  
                 }, 200);
         }
+        else if(document.getElementById('search-box').value.endsWith(",") && document.getElementById('search_type').value == "Ingredients" && document.getElementById('search-box').value.length > 2){
+                e.preventDefault();
+                $('.resultList').append(`<div class="boxContainer2">
+                <table class="elementsContainer2" style="height=42px;">
+                  <tr>
+                    <td style="font-size: 17px; font-family: Nunito; padding-right: 20px; padding-left: 15px; vertical-align: 10px;">
+                        <b id="ingredient_item${ingredient_item.length}">${document.getElementById('search-box').value.substring(0, document.getElementById('search-box').value.length-1)}</b>
+                    </td>
+                    <td style="width: 40px;">
+                        <button class="x_button" id="ingredient_x${ingredient_item.length}" href=""><i style="font-size: 20px;" class="material-icons">close</i></button>
+                    </td>
+                  </tr>
+                </table>
+              </div>`)
+              document.getElementById(`ingredient_x${ingredient_item.length}`).addEventListener('click', (e) => {
+                var n = e.currentTarget.id.substring(e.currentTarget.id.length-1, e.currentTarget.id.length);
+                $('.boxContainer2').eq(n).remove();
+                var index = ingredient_item.indexOf(`ingredient_item${n}`);
+              });
+              ingredient_item.push(document.getElementById('search-box').value.substring(0, document.getElementById('search-box').value.length-1));
+              document.getElementById('search-box').value = '';
+        }
     });
     
     document.querySelector(".search_type").addEventListener('click', (e) => {
         if (document.getElementById('search_type').value == "Ingredients"){
-                $('.results').empty(); 
+                $('.results').empty();
+                document.getElementById('search-box').value = '';
+        }
+        else{
+                $('.resultList').empty();
+                $('.results').empty();
+                ingredient_item = [];
+                document.getElementById('search-box').value = '';
         }
     })
 
     document.querySelector(".search_button").addEventListener('click', (e) => {
-        getSearch();
+        getSearch(ingredient_item);
     })
-
-    var coll = document.getElementsByClassName("collapsible");
-    var n;
-    for (n = 0; n < coll.length; n++) {
-        coll[i].addEventListener("click", function() {
-          this.classList.toggle("active");
-          var content = this.nextElementSibling;
-          if (content.style.display === "block") {
-            content.style.display = "none";
-          } else {
-            content.style.display = "block";
-          }
-        });
-    }
   })
 
   function getAutoComplete() {
@@ -59,13 +75,14 @@ $(document).ready(function() {
                   })
   }
 
-  function getSearch() {
+  function getSearch(ing) {
         const query = $('.search-box').val();
         if (document.getElementById('search_type').value != "Ingredients"){
                 window.open(`/result?prompt=${query}&auto=0&ing=0&size=${document.getElementById('max_results').value}`, "_self")
         }
         else {
-                window.open(`/result?prompt=${query}&auto=0&ing=1&size=${document.getElementById('max_results').value}`, "_self")
+                console.log(ing.toString())
+                window.open(`/result?prompt=${ing.toString()}&auto=0&ing=1&size=${document.getElementById('max_results').value}`, "_self")
         }
 }
   
