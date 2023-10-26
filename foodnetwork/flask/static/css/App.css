@@ -141,11 +141,11 @@ material-icons {
 }
 
 .shadow {
-  width: 1100px;
+  width: 1300px;
   min-height: 100%;
   left: 50%;
-  margin-left: -550px;
-  background-color: #ffffffaf;
+  margin-left: -650px;
+  background-color: #ffffff;
   background-size: cover;
   position: relative;
   border-radius: 50px;
@@ -218,8 +218,7 @@ html,body {
 
 .calories {
   border-radius: 50px;
-  background-color: white;
-  border: 2px solid #5c5c5c;
+  background-color: rgb(188, 255, 224);
   height: 50px;
   width: 200px;
   padding-top: 25px;
