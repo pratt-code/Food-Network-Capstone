@@ -21,13 +21,14 @@ def home():
 @cross_origin()
 def result_page():
     prompt = request.args["prompt"]
-    size = int(request.args["size"])
-    q = prompt.replace("_", " ")
     query = None
+    q = None
+    size = int(request.args["size"])
 
     if prompt == "null":
         return render_template("result.html", data=[], query="None")
     elif request.args["auto"] == "1" and request.args["ing"] == "0":
+        q = prompt.replace("_", " ")
         query = {
             "query": {
                 "match_phrase": {
@@ -42,7 +43,9 @@ def result_page():
                 }
             ]
         }
+        resp = es.search(index="recipes", body=query, size=size)
     elif request.args["auto"] != "1" and request.args["ing"] == "0":
+        q = prompt.replace("_", " ")
         query = {
             "query": {
                 "match": {
@@ -61,13 +64,12 @@ def result_page():
             ]
         }
     elif request.args["auto"] != "1" and request.args["ing"] == "1":
+        q = prompt.replace(",", " AND ")
         query = {
             "query": {
-                "match": {
-                    "ingredients": {
-                        "query": q,
-                        "fuzziness": "AUTO"
-                    }
+                "query_string": {
+                    "fields": ["ingredients"],
+                    "query": q
                 }
             },
             "sort": [
@@ -78,10 +80,11 @@ def result_page():
                 }
             ]
         }
+        q = "Ingredients: " + prompt.replace(",", ", ") #Redefine q for printing on result page
 
     resp = es.search(index="recipes", body=query, size=size)
-    print(query)
-    data = [[result['_source']['title'], result['_source']['ingredients'], result['_source']['instructions']] for result in resp['hits']['hits']]
+    print(resp)
+    data = [[result['_source']['title'], result['_source']['ingredients'], result['_source']['instructions'], str(result['_source']['calories'])[:-2]] for result in resp['hits']['hits']]
 
     return render_template("result.html", data=data, query=q)
 
