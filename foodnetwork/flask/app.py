@@ -84,7 +84,7 @@ def result_page():
 
     resp = es.search(index="recipes", body=query, size=size)
 
-    #Format is [title, ingredients, instructions, calories, protein, fat, sodium]
+    #Format is [title, ingredients, instructions, calories, protein, fat, sodium, categories]
     data = [[result['_source']['title'], result['_source']['ingredients'], result['_source']['instructions'], str(result['_source']['calories'])[:-2], str(result['_source']['protein'])[:-2], str(result['_source']['fat'])[:-2], str(result['_source']['sodium'])[:-2], result['_source']['categories']] for result in resp['hits']['hits']]
     tags = []
     for r in resp['hits']['hits']:

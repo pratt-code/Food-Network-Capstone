@@ -259,15 +259,17 @@ html,body {
   font-size: 20px;
 }
 
-.filter {
+.filters {
   text-align: center;
-  font-size: 15px;
+  font-size: 25px;
+  margin-top: 10px;
 }
 
 .allergy {
   text-align: left;
   margin-left: 590px;
   margin-top: 10px;
+  font-size: 20px;
 }
 
 .hidden_tags {
