@@ -228,3 +228,77 @@ html,body {
 .recipe_hidden {
   height: fit-content;
 }
+
+.protein {
+  text-align: center;
+  background-color: rgb(219, 219, 219);
+  border-radius: 20px;
+  padding: 12px;
+  margin-right: 20px;
+  margin-left: 20px;
+  font-size: 20px;
+}
+
+.fat {
+  text-align: center;
+  background-color: rgb(219, 219, 219);
+  border-radius: 20px;
+  padding: 12px;
+  margin-right: 20px;
+  margin-left: 20px;
+  font-size: 20px;
+}
+
+.sodium {
+  text-align: center;
+  background-color: rgb(219, 219, 219);
+  border-radius: 20px;
+  padding: 12px;
+  margin-right: 20px;
+  margin-left: 20px;
+  font-size: 20px;
+}
+
+.filter {
+  text-align: center;
+  font-size: 15px;
+}
+
+.allergy {
+  text-align: left;
+  margin-left: 590px;
+  margin-top: 10px;
+}
+
+.hidden_tags {
+  display: none;
+}
+
+.filterCount {
+  display: none;
+}
+
+.fs {
+  text-align: center;
+  font-size: 20px;
+  color: rgb(57, 57, 252);
+  margin-bottom: 20px;
+}
+
+.home_button {
+  width: 40px;
+  height: 40px;
+  border: none;
+  background-color: #ffffff;
+  align-items: center;
+  border-radius: 20px;
+  text-align: center;
+  border: 2px solid #313131;
+  margin-bottom: 10px;
+}
+
+.home_button:hover {
+  background-color:#ffffff;
+  transition: 0.5s;
+  cursor: pointer;
+}

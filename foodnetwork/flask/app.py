@@ -83,10 +83,14 @@ def result_page():
         q = "Ingredients: " + prompt.replace(",", ", ") #Redefine q for printing on result page
 
     resp = es.search(index="recipes", body=query, size=size)
-    print(resp)
-    data = [[result['_source']['title'], result['_source']['ingredients'], result['_source']['instructions'], str(result['_source']['calories'])[:-2]] for result in resp['hits']['hits']]
 
-    return render_template("result.html", data=data, query=q)
+    #Format is [title, ingredients, instructions, calories, protein, fat, sodium]
+    data = [[result['_source']['title'], result['_source']['ingredients'], result['_source']['instructions'], str(result['_source']['calories'])[:-2], str(result['_source']['protein'])[:-2], str(result['_source']['fat'])[:-2], str(result['_source']['sodium'])[:-2], result['_source']['categories']] for result in resp['hits']['hits']]
+    tags = []
+    for r in resp['hits']['hits']:
+        tags += r['_source']['categories']
+    print(tags)
+    return render_template("result.html", data=data, query=q, tags=tags)
 
 @app.route("/search")
 @cross_origin()
