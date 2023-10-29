@@ -294,6 +294,7 @@ html,body {
   border-radius: 20px;
   text-align: center;
   border: 2px solid #313131;
+  margin-bottom: 10px;
 }
 
 .home_button:hover {
