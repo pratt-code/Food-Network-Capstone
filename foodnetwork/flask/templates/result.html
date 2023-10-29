@@ -6,7 +6,8 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 <body>
-  <div style="background-image: linear-gradient(rgba(63, 63, 63, 0.849), rgba(255,255,255,0.85)), url('/static/backgroung.jpg'); 
+  <div style="background-image: linear-gradient(rgba(63, 63, 63, 0.849), 
+  rgba(255,255,255,0.85)), url('https://upload.wikimedia.org/wikipedia/commons/b/b1/Elegant_Background-6.jpg'); 
           min-width: 100%;
           min-height: 100%;
           text-align: center;
@@ -14,6 +15,7 @@
           box-shadow: 100px 0 90px -4px rgba(0, 0, 0, 0.8) inset, -100px 0 90px -4px rgba(0, 0, 0, 0.8) inset">
     <div class="shadow">
       <div style="background-color: #d3d3d3; padding-top: 20px; padding-bottom: 20px; border-bottom: 1px solid black;">
+        <button class="home_button" id="home_button"><i class="material-icons">home</i></button>
         <div class="boxContainer" style="margin-top: 5px;">
           <table class="elementsContainer">
             <tr>
@@ -29,15 +31,24 @@
                 <input type="text" id="search-box" autocomplete="off" placeholder="Search" class="search-box">
               </td>
               <td style="width: 40px; align-items: right;">
-                <button class="search_button" id="search_button" href=""><i class="material-icons">search</i></button>
+                <button class="search_button" id="search_button"><i class="material-icons">search</i></button>
               </td>
             </tr>
           </table>
           <script src="{{url_for('static', filename='scripts/AutoComplete.js')}}"></script>
         </div>
+        <div class="filters">
+          <b>Filters</b>
+          <div class="allergy">
+            
+          </div>
+        </div>
       </div>
       <div class="display">
         <h2 style="text-align: center;">{{data|length}} Results for "{{query}}"</h2>
+        <div class = "fs">
+          <b id="filterNum">0</b><b> Results filtered</b>
+        </div>
         {% for r in data %}
           <div class="recipe">
             <table class="recipe_table">
@@ -56,7 +67,7 @@
                   </td>
                   <td>
                     <div class="calories">
-                      <b>Calories: </b><b style="color:rgb(0, 0, 0)">{{r[3]}}</b>
+                      <b>Calories: </b><b class="c_num" style="color:rgb(0, 0, 0)">{{r[3]}}</b>
                     </div>
                   </td>
                 </tr>
@@ -65,13 +76,48 @@
             <div class="recipe_hidden" style="display:none;">
               <h4>Instructions</h4>
               <p>{{r[2]}}</p>
+              <table style="margin-left: auto; margin-right: auto;">
+                <tbody>
+                  <tr>
+                    <td>
+                      <div class="protein">
+                        Protein: <br>
+                        <b>{{r[4]}} g</b>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="fat">
+                        Fat: <br>
+                        <b>{{r[5]}} g</b>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="sodium">
+                        Sodium: <br>
+                        <b>{{r[6]}} mg</b>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
+            <div class="hidden_tags">
+              {% for t in r[7] %}
+                {{t}}
+              {% endfor %}
+            </div>
+            <div class="filterCount">
+              0
+            </div>
+            <hr>
           </div>
-          <hr>
         {% endfor %}
       </div>
     </div>
   </div>
   <script src="{{url_for('static', filename='scripts/recipeDisplay.js')}}"></script>
+  <script src="{{url_for('static', filename='scripts/homeButton.js')}}"></script>
+  <script src="{{url_for('static', filename='scripts/filters.js')}}"></script>
+  <script type="text/javascript">getFilters('{{tags|tojson}}')</script>
 </body>
 </html>
